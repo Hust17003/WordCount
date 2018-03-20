@@ -81,8 +81,8 @@ public class main {
     public static void readFile(String filePath){
         try {
         	//由于程序能够在执行一个命令之后继续执行下一个新的命令，所以计数变量和内容都不能声名为全局变量，只能为局部变量
-        	int countChar = 0;
-        	int countWord = 0;
+        	int countChar = -1;
+        	int countWord = 1;
         	int countLine = 0;
         	String content = "";//写入文件内容
             File filename = new File(filePath);  
@@ -94,7 +94,7 @@ public class main {
             {
             	countChar += str.length();//字符长度就是字符个数
             	countChar++;//每一行会有一个换行符，所以加一
-            	countWord += str.split("[ ,]").length;//split() 由空格或",",把一个字符串分割成字符串数组,字符串数组的长度，就是单词个数
+            	countWord += str.split(",| {1,}").length-1;//split() 由一个或一个以上空格或",",把一个字符串分割成字符串数组,字符串数组的长度，就是单词个数
             	countLine++;//因为是按行读取，所以每次增加一即可计算出行的数目
             }
             br.close();
