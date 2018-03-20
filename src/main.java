@@ -23,21 +23,16 @@ public class main {
 	static String pathName = "";//读取文件名，需要把文件放置在代码目录之下否则就需要输入文件完整路径
 	static String outputPath = "";//输出文件名，如果需要把文件存储在代码目录之外的位置则需要输入完整的路径
     public static void main(String[] argv){
-    	while(true){
-    		System.out.println("please enter your command:");
-	    	Scanner scanner = new Scanner(System.in);//输入命令
-	    	String input = scanner.nextLine();
-	    	if(input != null){
-	    		String[] command = input.split(" ");//以空格为分界将命令行分开成字符串数组
-	    		/*command[0]存储"wc.exe",command[1]存储文件内容操作"-s-w-l(中间无空格)"
-	    		  command[2]存储"需要读取判断的文件名"，command[3]存储"-o",command[4]存储输出文件名*/
-	    		if(command[0].equals("wc.exe")){//检测输入语法正确性
-	    			String[] cmd = command[1].split("-");//过滤"-"，将标志字存入数组
+	    	if(argv!= null){
+	    		/*argv[0]存储"wc.exe",argv[1]存储文件内容操作"-s-w-l(中间无空格)"
+	    		  argv[2]存储"需要读取判断的文件名"，argv[3]存储"-o",argv[4]存储输出文件名*/
+	    		if(argv[0].equals("wc.exe")){//检测输入语法正确性
+	    			String[] cmd = argv[1].split("-");//过滤"-"，将标志字存入数组
 	    			if(cmd.length>0){
 	    				int i=1;
 	    				while(i<cmd.length){//利用循环使得能够判断strArray[1]中的所有标志位
-		    				if(command[2] != null)
-		    					pathName = command[2];
+		    				if(argv[2] != null)
+		    					pathName = argv[2];
 		    				else
 		    					System.out.println("error input!");
 		    				switch(cmd[i]){
@@ -59,10 +54,10 @@ public class main {
 	    				System.out.println("error input!");
 	    			}
 	    			
-	    			if(command.length > 3)//如果存在-o参数，判断并设置标志位
-		    			if(command[3].equals("-o") && command[4] != null){
+	    			if(argv.length > 3)//如果存在-o参数，判断并设置标志位
+		    			if(argv[3].equals("-o") && argv[4] != null){
 		    				isOut = true;
-		    				outputPath = command[4];
+		    				outputPath = argv[4];
 		    			}
 		    			else{
 		    				System.out.println("error input!");
@@ -75,7 +70,6 @@ public class main {
 	    	}
 	    	readFile(pathName);//读取文件
     	}		
-    }
     
     //读指定文件并计数
     public static void readFile(String filePath){
